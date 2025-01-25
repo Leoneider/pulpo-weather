@@ -1,0 +1,85 @@
+<div class="mx-auto">
+  <mat-card appearance="outlined" class="w-2/3 mx-auto">
+    <mat-card-content>
+      <div class="flex justify-center">
+        <mat-form-field class="w-80" appearance="outline">
+          <mat-label>Ingrese la ciudad</mat-label>
+          <input
+            [dropdownTriggerFor]="dropdown"
+            type="tel"
+            matInput
+            placeholder="Ingrese la ciudad"
+            [formControl]="searchInput"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <ds-dropdown #dropdown>
+          @if (cities.length === 0) {
+            <div
+              class="flex items-center justify-center rounded-[9px] w-[304px]"
+            >
+              <p class="text-zinc-500 p-2 font-normal">
+                Por favor, realiza una búsqueda
+              </p>
+            </div>
+          } @else {
+            <ul
+              class="flex flex-col gap-1 overflow-auto max-h-[300px] w-[304px] font-medium"
+            >
+              @for (city of cities; track city.id) {
+                <li
+                  class="flex items-center p-2 rounded-[9px] hover:bg-slate-100"
+                  (click)="onClickCity(city)"
+                >
+                  {{ city.name }}
+                </li>
+              }
+            </ul>
+          }
+        </ds-dropdown>
+      </div>
+      @if (weatherCity?.location?.name) {
+        <div class="flex justify-end">
+          <button mat-fab (click)="onFavoriteCity(weatherCity)">
+            <mat-icon
+              [ngClass]="{ 'material-symbols-outlined': !isFavorite }"
+              matSuffix
+              >favorite</mat-icon
+            >
+          </button>
+        </div>
+        <div class="flex justify-center mt-4">
+          <div class="grid grid-cols-3 text-gray-700">
+            <div>
+              <img
+                [src]="weatherCity?.current?.condition?.icon"
+                [alt]="weatherCity?.current?.condition?.text"
+              />
+              <p>{{ weatherCity?.current?.condition?.text }}</p>
+              <p class="text-xl font-medium text-sky-800">
+                {{ weatherCity?.location?.name }}
+              </p>
+            </div>
+            <div class="flex flex-col justify-between">
+              <p class="text-lg text-gray-900">Temperatura actual</p>
+              <p>Celsius: {{ weatherCity?.current?.temp_c }}</p>
+              <p>Fahrenheit: {{ weatherCity?.current?.temp_f }}</p>
+            </div>
+            <div class="flex flex-col justify-between">
+              <p>
+                Velocidad del viento: {{ weatherCity?.current?.wind_kph }} km/h
+              </p>
+              <p>Humedad: {{ weatherCity?.current?.humidity }}</p>
+              <p>Hora: {{ weatherCity?.location?.localtime }}</p>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="flex flex-col justify-center items-center mt-4">
+          <img class="w-40" src="./empty-table.svg" alt="Empty Table Icon" />
+          <p class="text-zinc-500">No has seleccionado una ciudad</p>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
