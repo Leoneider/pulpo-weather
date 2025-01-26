@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import  SearchClimateComponent  from './search-climate.component';
+import { provideHttpClient } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SearchClimateComponent', () => {
   let component: SearchClimateComponent;
@@ -8,7 +10,8 @@ describe('SearchClimateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchClimateComponent]
+      imports: [SearchClimateComponent, NoopAnimationsModule,],
+      providers: [provideHttpClient()],
     })
     .compileComponents();
 

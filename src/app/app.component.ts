@@ -8,5 +8,5 @@ import { RouterLinkActive, RouterLinkWithHref, RouterOutlet } from '@angular/rou
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'pulpo-weather';
+
 }
